@@ -1,0 +1,69 @@
+Public class Test{
+    class Node{
+        int val;
+        Node next;
+    }
+    
+    Node head = null;
+    Node pointer = null;
+    Node newNode = null;
+    int count = 0 ;
+    
+    public void addNode(int i){
+        newNode = new Node();
+        if(head == null){
+            head = newNode;
+        }else{
+            pointer = head;
+            while(pointer.next != null){
+                pointer.next = pointer;
+            }
+            pointer.next = newNode; 
+        }
+        pointer = newNode;
+        pointer.val = i;
+        pointer.next = null;
+        count++;
+    }
+    
+    public int getValue (int i){
+        if(head == null || i < 0 || i> count){
+            return -1;
+        }else{
+            Node temp = null;
+            pointer = head;
+            for(int n = 0 ; n <= i ; n++){
+                temp = pointer;
+                pointer = pointer.next;
+            }
+            return temp.val;
+        }
+    }
+    public void deleteNode(int i){
+        if( i < 0 || i > count){
+            return ;
+        }else{
+            if(i == 0){
+                head = head.next;
+            }else{
+                Node temp = new Node();
+                pointer = head ;
+                int n = 0;
+                while(n <= i){
+                    temp = pointer;
+                    pointer = pointer.next;
+                }
+                temp.next = pointer.next;
+            }
+        }
+    }
+    public static void main (String[] args){
+        Test test = Test.class.newInstance();
+        for (int i = 0; i < 4 ; i++){
+            test.addNode(i);
+        }
+        System.out.println(test.getValue(2));
+        test.deleteNode(2);
+        System.out.printlntest.getValue(2));
+    }
+}
