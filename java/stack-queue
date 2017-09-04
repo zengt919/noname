@@ -1,0 +1,35 @@
+Public Class Test{
+    
+    private LinkedList<String> ll = new LinkedList<String>();
+    
+    public void push(String obj){
+        ll.addFirst(obj);
+    }
+    public Object pop(){
+        return ll.removeFirst();
+    }
+    public Object get(){
+        return  ll.getFirst();
+    }
+    public void add(String obj){
+        ll.addLast(obj);
+    }
+    public Object remove(){
+        return ll.removeFirst();
+    }
+    public Boolean isEmpty(){
+        return ll.isEmpty();
+    }
+    
+    public static void main(String[] args){
+        Test test = new Test();
+        test.add("1");
+        test.push("2");
+        test.push("3");
+        System.out.println(test.get());
+        System.out.println(test.remove());
+        System.out.println(test.pop());
+        System.out.println(test.isEmpty());
+    }
+
+}
