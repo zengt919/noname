@@ -1,4 +1,4 @@
-Public Class Test{
+Public class Test{
     
     private LinkedList<String> ll = new LinkedList<String>();
     
