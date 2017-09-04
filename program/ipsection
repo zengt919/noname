@@ -1,0 +1,48 @@
+public boolean isIp(String ip) {
+		boolean ipValid = false;
+		String ipSection = "";
+		List<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
+		if(list.size()>0){
+			  for(HashMap<String,String> map:list){
+            ipSection = map.get("IP").toString().trim();
+            ip = ip.trim();   
+            final String REGX_IP = "((25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]\\d|\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]\\d|\\d)";   
+            final String REGX_IPB = REGX_IP + "\\-" + REGX_IP;   
+            if (!ipSection.matches(REGX_IPB) || !ip.matches(REGX_IP)) return false;   
+            int idx = ipSection.indexOf('-');   
+            String[] sips = ipSection.substring(0, idx).split("\\.");   
+            String[] sipe = ipSection.substring(idx + 1).split("\\.");   
+            String[] sipt = ip.split("\\.");   
+            long ips = 0L, ipe = 0L, ipt = 0L;   
+            for (int i = 0; i < 4; ++i) {   
+              ips = ips << 8 | Integer.parseInt(sips[i]);   
+              ipe = ipe << 8 | Integer.parseInt(sipe[i]);   
+              ipt = ipt << 8 | Integer.parseInt(sipt[i]);   
+            }   
+            if (ips > ipe) {   
+              long t = ips;   
+              ips = ipe;   
+              ipe = t;   
+            }
+            boolean ipIsValid = (ips <= ipt) && (ipt <= ipe);
+            if(ipIsValid){
+              ipValid = ipIsValid;
+              break;
+            }
+			  }
+		}
+		return ipValid;
+} 
+public String getIp(HttpServletRequest request){
+		String ip = request.getHeader("x-forwarded-for");
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			  ip = request.getHeader("Proxy-Client-IP");
+		}
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			  ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			  ip = request.getRemoteAddr();
+		}
+		return ip;
+}
