@@ -1,0 +1,21 @@
+    
+    
+    //umac is a object reference ;任意对象引用
+    
+		//---长时间获取不到MAC地址则放弃
+		ExecutorService exec = Executors.newFixedThreadPool(1);
+		Callable<String> call = new Callable<String>() {
+		    public String call() throws Exception {
+		        return umac.GetRemoteMacAddr();
+		    }
+		};
+		try {
+		    Future<String> future = exec.submit(call);
+		    String smac = future.get(1000 * 4, TimeUnit.MILLISECONDS);
+		    System.out.println("----------xxx---------"+smac);
+		} catch (TimeoutException ex) {
+			  System.out.println("----------xxx---------");
+		    ex.printStackTrace();
+		}
+		// 关闭线程池  
+		exec.shutdown();
