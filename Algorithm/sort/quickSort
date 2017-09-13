@@ -1,0 +1,44 @@
+/**
+*   假定一个基准数  一般是数组的第一个元素  
+*   从右向左扫描的指针扫描比基准数小的数
+*   从左向右扫描的指针扫描比基准数大的数
+*   如果这两个指针索引值是右边大于左边的话，交换这一次扫描的数据
+*   直到这两个指针的索引值相等则跳出循环，交换基准数和这个索引的值
+*   将数据划分成左右递归调用
+*/
+
+/**
+*   每次快速排序的目的是将基准数放到正确的位置上
+*   O(Nlog(N))
+*/
+
+
+public static void quickSort(int []arr,int left,int right){
+		if(left > right){
+			return ;
+		}
+		int i = left ;
+		int j = right ;
+		int temp = arr[left];
+		while (i != j){
+			while(i < j && arr[j] >= temp ){
+				j--;
+			}
+			while(i < j && arr[i] <= temp){
+				i++;
+			}
+			if(i < j){
+				int t = arr[i];
+				arr[i] = arr[j];
+				arr[j] = t;
+			}
+		}
+		int k = arr[i];
+		arr[i] = temp;
+		arr[left] = k;
+		quickSort(arr, left, i-1);
+		quickSort(arr, j+1, right);
+		
+		
+		
+	}
