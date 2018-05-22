@@ -1,0 +1,49 @@
+/**
+* 632 二叉树最大节点
+* TreeNode{
+*     TreeNode left;
+*     TreeNode right;
+*     int val;
+* }
+*/
+
+public TreeNode maxNode (TreeNode root){
+    if(root == null){
+        return root;
+    }
+    if(root.left == null && root.right == null){
+        return root;
+    }
+    TreeNode leftMax = maxNode(root.left);
+    TreeNode rightMax = maxNode(root.right);
+    TreeNode res = root;
+    if(leftMax != null && leftMax.val > res.val){
+        res = leftMax;
+    }
+    if(rightMax != null && rightMax.val > res.val){
+        res = rightMax;
+    }
+    return res;
+}
+
+public TreeNode maxNode (TreeNode root){
+    if(root == null){
+        return root;
+    }
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.offer(root);
+    TreeNode max = root;
+    while(!queue.isEmpty()){
+        TreeNode temp = queue.poll();
+        if(temp.val > max.val){
+            max = temp;
+        }
+        if(temp.left != null){
+            queue.offer(temp.left);
+        }
+        if(temp.right != null){
+            queue.offer(temp.right);
+        }
+    }
+    return max;
+}
