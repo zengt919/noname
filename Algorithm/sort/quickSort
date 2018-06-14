@@ -14,31 +14,29 @@
 
 
 public static void quickSort(int []arr,int left,int right){
-		if(left > right){
-			return ;
-		}
-		int i = left ;
-		int j = right ;
-		int temp = arr[left];
-		while (i != j){
-			while(i < j && arr[j] >= temp ){
-				j--;
-			}
-			while(i < j && arr[i] <= temp){
-				i++;
-			}
-			if(i < j){
-				int t = arr[i];
-				arr[i] = arr[j];
-				arr[j] = t;
-			}
-		}
-		int k = arr[i];
-		arr[i] = temp;
-		arr[left] = k;
-		quickSort(arr, left, i-1);
-		quickSort(arr, j+1, right);
-		
-		
-		
+	if(left >= right){
+		return ;
 	}
+	int i = left ;
+	int j = right ;
+	int temp = arr[left];
+	while (i != j){
+		while(i < j && arr[j] >= temp ){
+			j--;
+		}
+		while(i < j && arr[i] <= temp){
+			i++;
+		}
+		if(i < j){
+			int t = arr[i];
+			arr[i] = arr[j];
+			arr[j] = t;
+		}
+	}
+	int k = arr[i];
+	arr[i] = temp;
+	arr[left] = k;
+	quickSort(arr, left, i-1);
+	quickSort(arr, j+1, right);	
+		
+}
