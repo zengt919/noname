@@ -1,0 +1,40 @@
+/**
+* 在txt中查找出现次数最多的单词
+*
+*/
+
+public static void ReadTxtWord(String path)throws IOException{
+
+  try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+    String reg1 = "\\s+";  //空格，换行
+    String reg2 = "\\w+";  //是否为单词  包括数字+字母
+    String str ;
+    int max = 1;
+    Map<String,Integer> map = new HashMap<>();
+    while((str = reader.readLine()) != null){
+      String[] arr = str.split(reg1);
+      for(String s : arr){
+        if(s.matches(reg2)){
+          if(map.containsKey(s)){
+            int nowMax = map.get(s) + 1 ;
+            if(nowMax > max){
+              max = nowMax;
+            }
+            map.put(s,nowMax);
+          }else{
+            map.put(s,1);
+          }
+        }
+      }
+    }
+    String res = "";
+    Iterator<Map.Entry<String,Integer>> iterator = map.entrySet().iterator();
+    while(iterator.hasNext()){
+      Map.Entry<String,Integer> entry = iterator.next();
+      if(entry.getValue() == max){
+        res += entry.getKey() + ",";
+      }
+    }
+    System.out.println(res);
+  }
+}
