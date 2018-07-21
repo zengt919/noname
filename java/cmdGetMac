@@ -7,9 +7,7 @@ import java.util.regex.Pattern;
 public class CmdGetClientMacAddr {
 
 	/**
-	 * 获取MAC地址
-	 * 
-	 * @author 2011-12
+	 * 获取MAC地址 通过执行命令
 	 */
 
 	public static String callCmd(String[] cmd) {
@@ -131,7 +129,7 @@ public class CmdGetClientMacAddr {
 		return macAddress;
 	}
 
-	// 做个测试
+	// 
 	public static void main(String[] args) {
 		System.out.println(getMacAddress("xx"));
 	}
