@@ -1,0 +1,32 @@
+/**
+* public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ * 一种想法是用map保存所有节点信息，循环节点时判断是否存在这个节点，但存在空间复杂度
+ *  另外就是使用两个节点遍历链表，有环时则两个节点会相遇
+  */
+  
+  public boolean isCycle(ListNode head){
+    if(null == head || null == head.next){
+      return false;
+    }
+    ListNode slowNode = head.next;
+    ListNode fastNode = head.next.next;
+    while(fastNode != null){
+      if(fastNode == slowNode){
+        return true;
+      }
+      if(null == fastNode.next){
+        return false;
+      }
+      fastNode = fastNode.next.next;
+      slowNode = slowNode.next;
+    }
+    return false;
+  
+  }
